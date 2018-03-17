@@ -3,7 +3,7 @@
 
 Le but de cet excercise est d'implementer un simulatuer de tondeuse. 
 
-## spécification
+## Spécification
 
 La tondeuse peut être programmée pour parcourir l'intégralité de la surface.
 La position de la tondeuse est représentée par une combinaison de coordonnées (x,y) et d'une
@@ -37,12 +37,12 @@ bouge que lorsque la première a exécuté intégralement sa série d'instructio
 Lorsqu'une tondeuse achève une série d'instruction, elle communique sa position et son
 orientation.
 
-## OBJECTIF
+## Objectif
 
 Concevoir et écrire un programme s'exécutant sur une JVM et implémentant la spécification
 ci-dessus et passant le test ci-après
 
-## TEST
+## Test
 Le fichier suivant est fourni en entrée :
 ```
 6 6
