@@ -19,6 +19,7 @@ Si la position après mouvement est en dehors de la pelouse, la tondeuse ne boug
 conserve son orientation et traite la commande suivante.
 On assume que la case directement au Nord de la position (x, y) a pour coordonnées (x, y+1).
 Pour programmer la tondeuse, on lui fournit un fichier d'entrée construit comme suit :
+
 ● La première ligne correspond aux coordonnées du coin supérieur droit de la pelouse, celles
 du coin inférieur gauche sont supposées être (0,0)
 
