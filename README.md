@@ -1,6 +1,9 @@
-#Tondeuse simulateur
+
+# Tondeuse simulateur
 
 Le but de cet excercise est d'implementer un simulatuer de tondeuse. 
+
+## spécification
 
 La tondeuse peut être programmée pour parcourir l'intégralité de la surface.
 La position de la tondeuse est représentée par une combinaison de coordonnées (x,y) et d'une
@@ -33,19 +36,25 @@ Chaque tondeuse se déplace de façon séquentielle, ce qui signifie que la seco
 bouge que lorsque la première a exécuté intégralement sa série d'instructions.
 Lorsqu'une tondeuse achève une série d'instruction, elle communique sa position et son
 orientation.
-OBJECTIF
+
+## OBJECTIF
+
 Concevoir et écrire un programme s'exécutant sur une JVM et implémentant la spécification
 ci-dessus et passant le test ci-après
 
-TEST
+## TEST
 Le fichier suivant est fourni en entrée :
+```
 6 6
 1 2 N
 GAGAGAGAA
 3 3 E
 AADAADADDA
+```
 On attend le résultat suivant (position finale des tondeuses) :
+```
 1 3 N
 5 1 E
+```
 NB: Les données en entrée peuvent être injectée sous une autre forme qu'un fichier (par
 exemple un test automatisé).
