@@ -14,12 +14,16 @@ public class TondeuseExecutorTest {
 
     private TondeuseLocationInfo locationInfo1;
     private Point fieldDimentions;
+    private int tondeusePositionX;
+    private int tondeusePositionY;
 
     @Before
     public void setUp(){
+        tondeusePositionX = 1;
+        tondeusePositionY = 1;
         locationInfo1 = TondeuseLocationInfo.RespawnInfoBuilder.asRespawnInfo()
-                .withRespawnLocationX(2)
-                .withRespawnLocationY(2)
+                .withRespawnLocationX(tondeusePositionX)
+                .withRespawnLocationY(tondeusePositionY)
                 .withDirection(TondeuseLocationInfo.Direction.E)
                 .build();
         fieldDimentions = new Point(3,3);
@@ -32,8 +36,8 @@ public class TondeuseExecutorTest {
         tondeuseExecutor.execute(fieldDimentions);
         Assertions.assertThat(locationInfo1)
                 .isEqualTo(TondeuseLocationInfo.RespawnInfoBuilder.asRespawnInfo()
-                        .withRespawnLocationX(locationInfo1.getTondeuseLocation().getPositionX())
-                        .withRespawnLocationY(locationInfo1.getTondeuseLocation().getPositionY())
+                        .withRespawnLocationX(tondeusePositionX)
+                        .withRespawnLocationY(tondeusePositionY)
                         .withDirection(TondeuseLocationInfo.Direction.N)
                         .build());
     }
@@ -45,70 +49,111 @@ public class TondeuseExecutorTest {
         tondeuseExecutor.execute(fieldDimentions);
         Assertions.assertThat(locationInfo1)
                 .isEqualTo(TondeuseLocationInfo.RespawnInfoBuilder.asRespawnInfo()
-                        .withRespawnLocationX(locationInfo1.getTondeuseLocation().getPositionX())
-                        .withRespawnLocationY(locationInfo1.getTondeuseLocation().getPositionY())
+                        .withRespawnLocationX(tondeusePositionX)
+                        .withRespawnLocationY(tondeusePositionY)
                         .withDirection(TondeuseLocationInfo.Direction.S)
                         .build());
     }
 
     @Test
     public void shouldMoveNorth(){
-        locationInfo1.setRespawnDirection(N);
+        locationInfo1.setTondeuseDirection(N);
         TondeuseExecutor tondeuseExecutor = new TondeuseExecutor(locationInfo1
                 , new Commands(Arrays.asList(Commands.Command.A)));
         tondeuseExecutor.execute(fieldDimentions);
         Assertions.assertThat(locationInfo1.getTondeuseLocation())
                 .extracting("positionX", "positionY")
-                .containsExactly(2, 3);
-        Assertions.assertThat(locationInfo1.getRespawnDirection()).isEqualTo(N);
+                .containsExactly(tondeusePositionX, tondeusePositionY + 1);
+        Assertions.assertThat(locationInfo1.getTondeuseDirection()).isEqualTo(N);
     }
 
     @Test
     public void shouldMoveSouth(){
-        locationInfo1.setRespawnDirection(S);
+        locationInfo1.setTondeuseDirection(S);
         TondeuseExecutor tondeuseExecutor = new TondeuseExecutor(locationInfo1
                 , new Commands(Arrays.asList(Commands.Command.A)));
         tondeuseExecutor.execute(fieldDimentions);
         Assertions.assertThat(locationInfo1.getTondeuseLocation())
                 .extracting("positionX", "positionY")
-                .containsExactly(2, 1);
-        Assertions.assertThat(locationInfo1.getRespawnDirection()).isEqualTo(S);
+                .containsExactly(tondeusePositionX, tondeusePositionY - 1);
+        Assertions.assertThat(locationInfo1.getTondeuseDirection()).isEqualTo(S);
     }
 
     @Test
     public void shouldMoveEast(){
-        locationInfo1.setRespawnDirection(E);
+        locationInfo1.setTondeuseDirection(E);
         TondeuseExecutor tondeuseExecutor = new TondeuseExecutor(locationInfo1
                 , new Commands(Arrays.asList(Commands.Command.A)));
         tondeuseExecutor.execute(fieldDimentions);
         Assertions.assertThat(locationInfo1.getTondeuseLocation())
                 .extracting("positionX", "positionY")
-                .containsExactly(3, 2);
-        Assertions.assertThat(locationInfo1.getRespawnDirection()).isEqualTo(E);
+                .containsExactly(tondeusePositionX + 1, tondeusePositionY);
+        Assertions.assertThat(locationInfo1.getTondeuseDirection()).isEqualTo(E);
     }
 
     @Test
     public void shouldMoveWest(){
-        locationInfo1.setRespawnDirection(W);
+        locationInfo1.setTondeuseDirection(W);
         TondeuseExecutor tondeuseExecutor = new TondeuseExecutor(locationInfo1
                 , new Commands(Arrays.asList(Commands.Command.A)));
         tondeuseExecutor.execute(fieldDimentions);
         Assertions.assertThat(locationInfo1.getTondeuseLocation())
                 .extracting("positionX", "positionY")
-                .containsExactly(1, 2);
-        Assertions.assertThat(locationInfo1.getRespawnDirection()).isEqualTo(W);
+                .containsExactly(tondeusePositionX - 1, tondeusePositionY);
+        Assertions.assertThat(locationInfo1.getTondeuseDirection()).isEqualTo(W);
     }
 
     @Test
-    public void shouldNotMoveWhenBordersBeyondBorders(){
-        locationInfo1.setRespawnDirection(E);
+    public void shouldNotMoveBeyondEastBorders(){
+        locationInfo1.setTondeuseDirection(E);
         TondeuseExecutor tondeuseExecutor = new TondeuseExecutor(locationInfo1
                 , new Commands(Arrays.asList(Commands.Command.A
                 , Commands.Command.A)));
         tondeuseExecutor.execute(fieldDimentions);
         Assertions.assertThat(locationInfo1.getTondeuseLocation())
                 .extracting("positionX", "positionY")
-                .containsExactly(3, 2);
-        Assertions.assertThat(locationInfo1.getRespawnDirection()).isEqualTo(E);
+                .containsExactly(tondeusePositionX + 1, tondeusePositionY);
+        Assertions.assertThat(locationInfo1.getTondeuseDirection()).isEqualTo(E);
+    }
+
+    @Test
+    public void shouldNotMoveBeyondWestBorders(){
+        locationInfo1.setTondeuseDirection(W);
+        TondeuseExecutor tondeuseExecutor = new TondeuseExecutor(locationInfo1
+                , new Commands(Arrays.asList(Commands.Command.A
+                , Commands.Command.A
+                , Commands.Command.A)));
+        tondeuseExecutor.execute(fieldDimentions);
+        Assertions.assertThat(locationInfo1.getTondeuseLocation())
+                .extracting("positionX", "positionY")
+                .containsExactly(tondeusePositionX - 1, tondeusePositionY);
+        Assertions.assertThat(locationInfo1.getTondeuseDirection()).isEqualTo(W);
+    }
+
+    @Test
+    public void shouldNotMoveBeyondNorthBorders(){
+        locationInfo1.setTondeuseDirection(N);
+        TondeuseExecutor tondeuseExecutor = new TondeuseExecutor(locationInfo1
+                , new Commands(Arrays.asList(Commands.Command.A
+                , Commands.Command.A)));
+        tondeuseExecutor.execute(fieldDimentions);
+        Assertions.assertThat(locationInfo1.getTondeuseLocation())
+                .extracting("positionX", "positionY")
+                .containsExactly(tondeusePositionX, tondeusePositionY + 1);
+        Assertions.assertThat(locationInfo1.getTondeuseDirection()).isEqualTo(N);
+    }
+
+    @Test
+    public void shouldNotMoveBeyondSouthBorders(){
+        locationInfo1.setTondeuseDirection(S);
+        TondeuseExecutor tondeuseExecutor = new TondeuseExecutor(locationInfo1
+                , new Commands(Arrays.asList(Commands.Command.A
+                , Commands.Command.A
+                , Commands.Command.A)));
+        tondeuseExecutor.execute(fieldDimentions);
+        Assertions.assertThat(locationInfo1.getTondeuseLocation())
+                .extracting("positionX", "positionY")
+                .containsExactly(tondeusePositionX, tondeusePositionY - 1);
+        Assertions.assertThat(locationInfo1.getTondeuseDirection()).isEqualTo(S);
     }
 }

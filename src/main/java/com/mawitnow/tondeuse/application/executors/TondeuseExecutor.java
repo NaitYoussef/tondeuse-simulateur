@@ -10,77 +10,77 @@ import static com.mawitnow.tondeuse.application.models.Commands.Command;
 
 
 public class TondeuseExecutor {
-    private TondeuseLocationInfo respawnInfo;
+    private TondeuseLocationInfo tondeuseLocationInfo;
     private Commands commandList;
 
-    public TondeuseExecutor(TondeuseLocationInfo respawnInfo, Commands commandList) {
-        this.respawnInfo = respawnInfo;
+    public TondeuseExecutor(TondeuseLocationInfo tondeuseLocationInfo, Commands commandList) {
+        this.tondeuseLocationInfo = tondeuseLocationInfo;
         this.commandList = commandList;
-
     }
 
     public void execute(Point fieldDimentions){
         for(Command command : commandList.getCommandList() ){
             switch(command){
-                case A:
-                        move(fieldDimentions);
+                case A : move(fieldDimentions);
                     break;
-                case D: rotateRight(fieldDimentions);
+                case D : rotateRight();
                     break;
-                case G: rotateLeft(fieldDimentions);
+                case G : rotateLeft();
                     break;
             }
         }
     }
 
     private void move(Point fieldDimentions) {
-        switch (respawnInfo.getRespawnDirection()) {
+        switch (tondeuseLocationInfo.getTondeuseDirection()) {
             case E:
-                if(respawnInfo.getTondeuseLocation().getPositionX()<fieldDimentions.getPositionX()) {
-                    PointMoveHelper.moveXUpWards(respawnInfo.getTondeuseLocation());
+                if(tondeuseLocationInfo.getTondeuseLocation().getPositionX()
+                        <fieldDimentions.getPositionX() - 1) {
+                    PointMoveHelper.moveXUpWards(tondeuseLocationInfo.getTondeuseLocation());
                 }
                 break;
             case S:
-                if(respawnInfo.getTondeuseLocation().getPositionY()>0) {
-                    PointMoveHelper.moveYBackWards(respawnInfo.getTondeuseLocation());
+                if(tondeuseLocationInfo.getTondeuseLocation().getPositionY() > 0) {
+                    PointMoveHelper.moveYBackWards(tondeuseLocationInfo.getTondeuseLocation());
                 }
                 break;
             case N:
-                if (respawnInfo.getTondeuseLocation().getPositionY() < fieldDimentions.getPositionY()) {
-                    PointMoveHelper.moveYUpWards(respawnInfo.getTondeuseLocation());
+                if (tondeuseLocationInfo.getTondeuseLocation().getPositionY()
+                        < fieldDimentions.getPositionY() - 1) {
+                    PointMoveHelper.moveYUpWards(tondeuseLocationInfo.getTondeuseLocation());
                 }
                 break;
             case W:
-                if(respawnInfo.getTondeuseLocation().getPositionX()>0) {
-                    PointMoveHelper.moveXBackWards(respawnInfo.getTondeuseLocation());
+                if(tondeuseLocationInfo.getTondeuseLocation().getPositionX() > 0) {
+                    PointMoveHelper.moveXBackWards(tondeuseLocationInfo.getTondeuseLocation());
                 }
                 break;
         }
     }
 
-    private void rotateRight(Point fieldDimentions) {
-        switch (respawnInfo.getRespawnDirection()) {
-            case E: respawnInfo.setRespawnDirection(S);
+    private void rotateRight() {
+        switch (tondeuseLocationInfo.getTondeuseDirection()) {
+            case E: tondeuseLocationInfo.setTondeuseDirection(S);
                 break;
-            case S: respawnInfo.setRespawnDirection(W);
+            case S: tondeuseLocationInfo.setTondeuseDirection(W);
                 break;
-            case N: respawnInfo.setRespawnDirection(E);
+            case N: tondeuseLocationInfo.setTondeuseDirection(E);
                 break;
-            case W: respawnInfo.setRespawnDirection(N);
+            case W: tondeuseLocationInfo.setTondeuseDirection(N);
                 break;
         }
 
     }
 
-    private void rotateLeft(Point fieldDimentions) {
-        switch (respawnInfo.getRespawnDirection()) {
-            case E: respawnInfo.setRespawnDirection(N);
+    private void rotateLeft() {
+        switch (tondeuseLocationInfo.getTondeuseDirection()) {
+            case E: tondeuseLocationInfo.setTondeuseDirection(N);
                 break;
-            case S: respawnInfo.setRespawnDirection(E);
+            case S: tondeuseLocationInfo.setTondeuseDirection(E);
                 break;
-            case N: respawnInfo.setRespawnDirection(W);
+            case N: tondeuseLocationInfo.setTondeuseDirection(W);
                 break;
-            case W: respawnInfo.setRespawnDirection(S);
+            case W: tondeuseLocationInfo.setTondeuseDirection(S);
                 break;
         }
     }

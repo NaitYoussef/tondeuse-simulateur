@@ -18,12 +18,12 @@ public class TondeuseSimulateurTest {
 
     @Before
     public void setUp(){
-        Point fieldDimentions = new Point(5,5);
+        Point fieldDimentions = new Point(6,6);
         tondeuseSimulateur = new TondeuseSimulateur(fieldDimentions);
         tondeuseLocationInfo1 = TondeuseLocationInfo.RespawnInfoBuilder.asRespawnInfo()
                 .withRespawnLocationX(1)
                 .withRespawnLocationY(2)
-                .withDirection(TondeuseLocationInfo.Direction.E)
+                .withDirection(TondeuseLocationInfo.Direction.N)
                 .build();
         Commands commandList1 =
                 new Commands(Arrays.asList(Commands.Command.G

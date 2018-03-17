@@ -4,27 +4,27 @@ import java.util.Objects;
 
 public class TondeuseLocationInfo {
     private Point tondeuseLocation;
-    private Direction respawnDirection;
+    private Direction tondeuseDirection;
 
-    public TondeuseLocationInfo(Point tondeuseocation, Direction respawnDirection) {
-        this.tondeuseLocation = tondeuseocation;
-        this.respawnDirection = respawnDirection;
+    public TondeuseLocationInfo(Point respawnTondeuseLocation, Direction respawnDirection) {
+        this.tondeuseLocation = respawnTondeuseLocation;
+        this.tondeuseDirection = respawnDirection;
     }
 
     public Point getTondeuseLocation() {
         return tondeuseLocation;
     }
 
-    public Direction getRespawnDirection() {
-        return respawnDirection;
+    public Direction getTondeuseDirection() {
+        return tondeuseDirection;
     }
 
     public void setTondeuseLocation(Point tondeuseLocation) {
         this.tondeuseLocation = tondeuseLocation;
     }
 
-    public void setRespawnDirection(Direction respawnDirection) {
-        this.respawnDirection = respawnDirection;
+    public void setTondeuseDirection(Direction tondeuseDirection) {
+        this.tondeuseDirection = tondeuseDirection;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class TondeuseLocationInfo {
         if(obj == this) return true;
         if(obj instanceof TondeuseLocationInfo){
             TondeuseLocationInfo otherTondeuse = (TondeuseLocationInfo) obj;
-            return Objects.equals(this.getRespawnDirection(), otherTondeuse.getRespawnDirection())
+            return Objects.equals(this.getTondeuseDirection(), otherTondeuse.getTondeuseDirection())
                     && Objects.equals(this.getTondeuseLocation(), otherTondeuse.getTondeuseLocation());
         }
         return false;
@@ -41,7 +41,7 @@ public class TondeuseLocationInfo {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getRespawnDirection(),
+        return Objects.hash(this.getTondeuseDirection(),
                 this.getTondeuseLocation());
     }
 
